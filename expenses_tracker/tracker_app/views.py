@@ -6,31 +6,30 @@ from expenses_tracker.tracker_app.models import Profile
 
 def home_page(request):
     profiles = Profile.objects.all()
-    context ={
-        'profiles': profiles,
-    }
-    return render(request, 'home.html', context)
+    if profiles:
+        return render(request, 'home-with-profile.html')
+    return render(request, 'home-no-profile.html')
 
 
 def create_expense(request):
-    pass
+    return render(request, 'expense-create.html')
 
 
 def edit_expense(request):
-    pass
+    return render(request, 'expense-edit.html')
 
 
 def delete_expense(request):
-    pass
+    return render(request, 'expense-delete.html')
 
 
 def profile_page(request):
-    pass
+    return render(request, 'profile.html')
 
 
 def profile_edit(request):
-    pass
+    return render(request, 'profile-edit.html')
 
 
 def profile_delete(request):
-    pass
+    return render(request, 'profile-delete.html')
