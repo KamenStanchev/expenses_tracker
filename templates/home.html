@@ -1,0 +1,14 @@
+{{ profiles }}
+
+
+{% for profile in  profiles %}
+    <LI>{{ profile.first_name }}</LI>
+    <li>{{ profile.image.url }}</li>
+    <img style="max-width: 200px" src='{{ profile.image.url }}'
+         class="card-img"
+         alt="No image here">
+
+{% endfor %}
+
+<ul></ul>
+<img style="max-width: 140px" src="/expenses_tracker/static/images/user.png" alt="Somethink">

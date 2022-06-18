@@ -1,9 +1,15 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from expenses_tracker.tracker_app.models import Profile
+
 
 def home_page(request):
-    return HttpResponse('Home page, Uaa')
+    profiles = Profile.objects.all()
+    context ={
+        'profiles': profiles,
+    }
+    return render(request, 'home.html', context)
 
 
 def create_expense(request):

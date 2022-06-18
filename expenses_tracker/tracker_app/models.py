@@ -30,11 +30,12 @@ class Profile(models.Model):
 
     )
 
-    # profile_image = photo = models.ImageField(
-    #     'Profile Image',
-    #     upload_to='images/',
-    #
-    # )
+    image = models.ImageField(
+        'Profile Image',
+        upload_to='images/',
+        default='expenses_tracker/static/images/user.png'
+
+    )
 
 
 class Expense(models.Model):
