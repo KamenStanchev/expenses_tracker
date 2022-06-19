@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from expenses_tracker.tracker_app.forms import ProfileForm
+from expenses_tracker.tracker_app.forms import ProfileForm, ExpenseForm
 from expenses_tracker.tracker_app.models import Profile, Expense
 
 
@@ -41,15 +41,51 @@ def home_page(request):
 
 
 def create_expense(request):
-    return render(request, 'expense-create.html')
+    profile = get_profile()
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.owner_profile = profile
+            post.save()
+            return redirect('home_page')
+    else:
+        form = ExpenseForm()
+    contex = {
+        'form': form,
+    }
+
+    return render(request, 'expense-create.html', contex)
 
 
 def edit_expense(request, pk):
-    return render(request, 'expense-edit.html')
+    expense = Expense.objects.get(id=pk)
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST, instance=expense)
+        if form.is_valid():
+            form.save()
+            return redirect('home_page')
+
+    form = ExpenseForm(instance=expense)
+    context = {
+        'form': form,
+        'pk': pk,
+    }
+
+    return render(request, 'expense-edit.html', context)
 
 
 def delete_expense(request, pk):
-    return render(request, 'expense-delete.html')
+    expense = Expense.objects.get(id=pk)
+    form = ExpenseForm(instance=expense)
+    if request.method == 'POST':
+        expense.delete()
+        return redirect('home_page')
+    contex = {
+        'form': form,
+        'pk': pk,
+    }
+    return render(request, 'expense-delete.html', contex)
 
 
 def profile_page(request):
