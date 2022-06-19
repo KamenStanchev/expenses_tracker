@@ -11,8 +11,10 @@
 <nav>
     <ul>
         <li class="img"><img src="/expenses_tracker/static/images/dollar.png" alt="dollar"></li>
-        <li><a href="#">Expenses Tracker</a></li>
-        <li class="right"><a href="#">Profile</a></li>
+        <li><a href="{% url 'home_page' %}">Expenses Tracker</a></li>
+        {% if not not_user %}
+            <li class="right"><a href="{% url 'profile_page' %}">Profile</a></li>
+        {% endif %}
     </ul>
 </nav>
 <!-- End Navigation Bar -->
