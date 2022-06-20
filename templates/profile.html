@@ -5,19 +5,19 @@
     <div class="expenses-container">
         <div class="expense-container">
             <!-- Full Name -->
-            <h2>Aleksandra Raykova</h2>
+            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
             <!-- Profile Image -->
-            <img src="/static/images/user.png" alt="profile pic">
+            <img src="{{ profile.image.url }}" alt="profile pic">
             <!-- Profile Description -->
             <!-- Total Items Bought -->
-            <p>Total Items Bought: 2</p>
+            <p>Total Items Bought: {{ total_expenses }}</p>
             <!-- Budget Left -->
-            <p>Budget Left: 100.00$</p>
+            <p>Budget Left: {{ budget_left|floatformat:2 }}$</p>
             <div class="right">
                 <!-- Edit Profile Button -->
-                <a class="button edit" href="#">Edit Profile</a>
+                <a class="button edit" href="{% url 'profile_edit' profile.pk%}">Edit Profile</a>
                 <!-- Delete Profile Button -->
-                <a class="button delete" href="#">Delete Profile</a>
+                <a class="button delete" href="{% url 'profile_delete' profile.pk%}">Delete Profile</a>
             </div>
         </div>
     </div>

@@ -13,6 +13,6 @@ urlpatterns = [
     path('delete/<str:pk>/', delete_expense, name='delete_expense'),
 
     path('profile/', profile_page, name='profile_page'),
-    path('profile/edit/', profile_edit, name='profile_edit'),
-    path('profile/delete/', profile_delete, name='profile_delete'),
+    path('profile/edit/<str:pk>/', profile_edit, name='profile_edit'),
+    path('profile/delete/<str:pk>/', profile_delete, name='profile_delete'),
 ]

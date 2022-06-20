@@ -4,7 +4,7 @@
     <h1>Enter your data</h1>
     <!-- Profile Create Form -->
     <div class="form">
-        <form method="POST" action="{% url 'home_page' %}">
+        <form method="POST" enctype="multipart/form-data" >
             {% csrf_token %}
             {{ form }}
             <!-- Profile Create Button -->
