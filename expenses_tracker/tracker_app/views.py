@@ -13,6 +13,19 @@ def get_profile():
     return None
 
 
+def profile_edit(request, pk):
+    profile = Profile.objects.get(id=pk)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile_page')
+    form = ProfileForm(instance=profile)
+    context = {'form': form,
+               'pk': pk}
+    return render(request, 'profile-edit.html', context)
+
+
 def home_page(request):
     profile = get_profile()
     if profile:
@@ -100,18 +113,9 @@ def profile_page(request):
     return render(request, 'profile.html', context)
 
 
-def profile_edit(request, pk):
+def profile_delete(request, pk):
     profile = Profile.objects.get(id=pk)
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect('profile_page')
-    form = ProfileForm(instance=profile)
-    context = {'form': form,
-               'pk': pk}
-    return render(request, 'profile-edit.html', context)
-
-
-def profile_delete(request, pk):
-    return render(request, 'profile-delete.html')
+        profile.delete()
+        return redirect('home_page')
+    return render(request, 'profile-delete.html', {'pk': pk,})
